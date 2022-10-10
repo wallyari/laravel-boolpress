@@ -21,8 +21,8 @@
                 <td>{{$post->title}}</td>
                 <td>{{$post->slug}}</td>
                 <td>
-                    <a href="{{route('admin.posts.show',['post'=> $post->id])}}" class="btn btn-primary">SHOW</a>
-                    <a href="#" class="btn btn-warning">EDIT</a>
+                    <a href="{{route('admin.posts.show',['post'=>$post->id])}}" class="btn btn-primary">SHOW</a>
+                    <a href="{{route('admin.posts.edit',['post'=>$post->id])}}" class="btn btn-warning">EDIT</a>
                     <a href="#" class="btn btn-danger">DELETE</a>
                 </td>
             </tr>   

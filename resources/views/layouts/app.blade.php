@@ -28,7 +28,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.posts.index') }}">Post</a>
+                            <a class="nav-link" href="{{ route('admin.posts.index') }}">Post Manager</a>
                         </li>                        
                     </ul>
                     <!-- Right Side Of Navbar -->
