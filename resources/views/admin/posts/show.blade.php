@@ -12,6 +12,9 @@
         </blockquote>
     </div>
     </div>
+    <div class= "card-footer m-3 d-flex justify-content-center">
+        <a href="{{route('admin.posts.index')}}" class="btn btn-danger">Back</a>
+    </div>
 
 
 </div>
