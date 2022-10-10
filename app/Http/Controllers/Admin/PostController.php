@@ -61,7 +61,7 @@ class PostController extends Controller
     
     $post->slug = $slug;
     $post->save();    
-    return redirect()->route('admin.posts.index');
+    return redirect()->route('admin.posts.index')->with('status', 'Post updated!');
 
     }
 

@@ -6,16 +6,26 @@
         @csrf
         <div class="form-group">
             <label for="title">Title</label>
-            <input type="text" class="form-control" id="title"  placeholder="Enter title" name="title" required max="255">
-        </div>
+            <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" required placeholder="Enter title" name="title" value="{{old('title')}}" max="255" >
+            @error('title')
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            </div>
+            @enderror
         <div class="form-group">
             <label for="content">Content</label>
-            <textarea class="form-control" id="content" placeholder="Enter Content" name="content" required max="255">
-    
+            <textarea class="form-control @error('content') is-invalid @enderror" id="content" required placeholder="Enter Content" name="content">
+                {{old('content')}}
             </textarea>
-    
+            @error('title')
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
         <button type="submit" class="btn btn-primary">Save</button>
+        </div>
     </form>
 
 </div>
