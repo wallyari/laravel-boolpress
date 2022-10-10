@@ -20,14 +20,18 @@
                 <th scope="row">{{$post->id}}</th>
                 <td>{{$post->title}}</td>
                 <td>{{$post->slug}}</td>
-                <td>
-                    <a href="{{route('admin.posts.show',['post'=>$post->id])}}" class="btn btn-primary">SHOW</a>
-                    <a href="{{route('admin.posts.edit',['post'=>$post->id])}}" class="btn btn-warning">EDIT</a>
-                    <a href="#" class="btn btn-danger">DELETE</a>
+                <td>                    
+                    <a href="{{route('admin.posts.show',['post'=>$post->id])}}" class="btn btn-primary mr-3">SHOW</a>
+                    <a href="{{route('admin.posts.edit',['post'=>$post->id])}}" class="btn btn-warning mr-3">EDIT</a>
+                    <form method="POST" class="d-sm-inline" action="{{route('admin.posts.destroy',['post'=> $post->id])}}">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger mr-3">DELETE</button>
+                    </form>
                 </td>
             </tr>   
             @endforeach
-        </tbody>
+        </tbody>  
     </table>
 
 </div>
