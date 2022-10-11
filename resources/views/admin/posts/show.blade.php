@@ -8,7 +8,7 @@
     <div class="card-body">
         <blockquote class="blockquote mb-0">
         <p> Descripion: {{$post->content}}</p>
-        <p> Category: {{$post->category?-$post->$category->name:'Unavailable'}}</p>
+        <p> Category: {{$post->category?$post->$category->name:'Unavailable'}}</p>
         <footer class="blockquote-footer ">Slug: <cite title="Source Title"> {{$post->slug}}</cite></footer>
         </blockquote>
     </div>

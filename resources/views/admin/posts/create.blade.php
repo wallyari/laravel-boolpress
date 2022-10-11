@@ -4,6 +4,7 @@
 <div class="container">
     <form action="{{route('admin.posts.store')}}" method="POST">
         @csrf
+        <h3 class="mb-4">Add Post</h3>
         <div class="form-group mb-3">
             <label for="category_id">Category</label>
             <select name="category_id" class="form-control @error('category_id') is-invalid @enderror" id="category_id">
@@ -18,6 +19,7 @@
                 </div>
             @enderror
         </div>
+        
         <div class="form-group mb-3">
             <label for="title">Title</label>
             <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" required placeholder="Enter title" name="title" value="{{old('title')}}" max="255" >
@@ -27,7 +29,8 @@
                 </div>
             </div>
             @enderror
-        <div class="form-group">
+        
+            <div class="form-group">
             <label for="content">Content</label>
             <textarea class="form-control @error('content') is-invalid @enderror" id="content" required placeholder="Enter Content" name="content">
                 {{old('content')}}
