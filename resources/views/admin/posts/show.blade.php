@@ -9,6 +9,12 @@
         <blockquote class="blockquote mb-0">
         <p> Descripion: {{$post->content}}</p>
         <p> Category: {{$post->category?$post->category->name:'Unavailable'}}</p>
+        <span class="">Tags:</span>
+            @foreach ($post->tags as $tag)
+            {{$tag->name}} -            
+            @endforeach
+    </div>
+        <div>
         <footer class="blockquote-footer ">Slug: <cite title="Source Title"> {{$post->slug}}</cite></footer>
         </blockquote>
     </div>

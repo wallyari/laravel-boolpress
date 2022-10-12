@@ -12,6 +12,7 @@
             <th scope="col">Title</th>
             <th scope="col">Slug</th>
             <th scope="col">Category</th>
+            <th scope="col">Tags</th>
             <th scope="col">Action</th>
         </tr>
         </thead>
@@ -22,6 +23,14 @@
                 <td>{{$post->title}}</td>
                 <td>{{$post->slug}}</td>
                 <td>{{($post->category)?$post->category->name: '_'}}</td>
+                
+                <td>
+                    @foreach ($post->tags as $tag)
+                    {{$tag->name}}
+                        
+                    @endforeach
+                </td>
+                
                 <td>                    
                     <a href="{{route('admin.posts.show',['post'=>$post->id])}}" class="btn btn-primary mr-3">SHOW</a>
                     <a href="{{route('admin.posts.edit',['post'=>$post->id])}}" class="btn btn-warning mr-3">EDIT</a>
