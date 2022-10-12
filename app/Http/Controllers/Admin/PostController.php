@@ -42,10 +42,13 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request->all());
+        
         $request->validate([
         'title'=>'required|max:255',
         'content'=>'required|max:65535',
         'category_id'=>'nullable|exists:categories,id',
+        'tags'=>'exists:tags,id'
     ]);
     
     $data = $request->all();
@@ -65,7 +68,13 @@ class PostController extends Controller
     
     
     $post->slug = $slug;
-    $post->save();    
+    $post->save();
+    
+    //primo argomento  $key - secondo $array da verificare
+    if(array_key_exists('tags', $data)){
+    $post->tags()->sync($data['tags']);
+    }
+    
     return redirect()->route('admin.posts.index')->with('status', 'Post create!');
 
     }
