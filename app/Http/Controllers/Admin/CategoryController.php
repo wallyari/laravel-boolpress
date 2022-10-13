@@ -26,7 +26,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-      //
+        return view('admin.categories.create');
     }
 
     /**
@@ -37,7 +37,18 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:100|min:2'
+        ]);
+        $data = $request->all();
+        $newCategory = new Category();
+        $newCategory->fill($data);
+
+        $slug = $this->getUniqueSlug($newCategory->name);
+        $newCategory->slug = $slug;
+        $newCategory->save();
+
+        return redirect()->route('admin.category.index')->with('create', 'Update Category');
     }
 
     /**

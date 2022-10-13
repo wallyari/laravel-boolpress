@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="container">
-    <div class="m-3 d-flex justify-content-end">
-        {{-- <a href="{{route('admin.categories.create')}}" class="btn btn-primary">Add New Post</a>   --}}
+    <div class="m-3 d-flex justify-content-start">
+        <a href="{{route('admin.categories.create')}}" class="btn btn-success">Add Category</a> 
     </div>
 <table class="table table-striped table-hover">
     <thead>
