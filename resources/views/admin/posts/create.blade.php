@@ -44,11 +44,10 @@
             <div class="form-check form-check-inline" >
                 <div class="mb-3 uppercase">Tag:</div>
                 @foreach ( $tags as $tag )
-                <div class="form-group form-check">
-                    <input {{(in_array($tag->id, old('tags',[])))?'checked':''}} name="tags[]" type="checkbox" class="form-check-input" id="tag_{{$tag->id}}"value="{{$tag->id}}">
-
-                    <label class="form-check-label" for="tag_{{$tag->id}}">{{$tag->name}}</label>
-                </div>
+                    <div class="form-group form-check">
+                        <input {{(in_array($tag->id, old('tags',[])))?'checked':''}} name="tags[]" type="checkbox" class="form-check-input" id="tag_{{$tag->id}}" value="{{$tag->id}}">
+                        <label class="form-check-label" for="tag_{{$tag->id}}">{{$tag->name}}</label>
+                    </div>
                 @endforeach
                 @error('tags')
                     <div class="alert alert-danger">
