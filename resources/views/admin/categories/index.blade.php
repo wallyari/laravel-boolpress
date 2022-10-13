@@ -22,8 +22,10 @@
                 <td>{{$category->slug}}</td>
                 <td>                    
                     <a href="{{route('admin.categories.show',['category'=>$category->id])}}" class="btn btn-primary mr-3">SHOW</a>
-                    {{-- <a href="{{route('admin.categories.edit',['category'=>$post->id])}}" class="btn btn-warning mr-3">EDIT</a> --}}
-                    {{-- <form method="POST" class="d-sm-inline" action="{{route('admin.categories.destroy',['post'=> $post->id])}}">
+                    <a href="{{route('admin.categories.edit',['category'=>$category->id])}}" class="btn btn-warning mr-3">EDIT</a> 
+                    {{-- <form method="POST" 
+                    class="d-sm-inline" 
+                    action="{{route('admin.categories.destroy',['category'=> $category->id])}}">
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-danger mr-3">DELETE</button>

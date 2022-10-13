@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -38,17 +39,19 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|max:100|min:2'
+            'name' => 'required|max:255|min:3'
         ]);
         $data = $request->all();
-        $newCategory = new Category();
-        $newCategory->fill($data);
+        $category = new Category();
+        $category->fill($data);;
 
-        $slug = $this->getUniqueSlug($newCategory->name);
-        $newCategory->slug = $slug;
-        $newCategory->save();
+        
+        $slug = Str::slug($category->name . '-' . $category->id, '-'); 
+        $category->slug = $slug;
+   
+        $category->save();
 
-        return redirect()->route('admin.category.index')->with('create', 'Update Category');
+        return redirect()->route('admin.categories.index')->with('status', 'Category Update');
     }
 
     /**
@@ -68,9 +71,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        //
+        return view('admin.categories.edit', compact('category'));   
     }
 
     /**
@@ -80,9 +83,21 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:255|min:3'
+        ]);
+            $dati = $request->all();
+
+        //slug
+        $slug = Str::slug($dati['name'] . '-' . $category['id'], '-'); 
+        $dati['slug'] = $slug;
+        
+        $category->update($dati);
+        $category->save();
+
+        return redirect()->route('admin.categories.edit', ['category', 'category'=> $category->id])->with('status', 'Post modificato con successo');
     }
 
     /**
