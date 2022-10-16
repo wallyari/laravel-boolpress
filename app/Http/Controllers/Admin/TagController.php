@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Tag;
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,8 @@ class TagController extends Controller
      */
     public function create()
     {
-        //
+
+        return view('admin.tags.create');
     }
 
     /**
@@ -36,8 +38,26 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'tag'=> 'required|max:255|min:3'
+        ]);
+        $data = $request->all();
+        $tag = new Tag();
+        $tag->fill($data);
+
+        $tags = new Tag();
+
+        $tags->fill($data);
+        $tags->save();
+
+        $slug = Str::slug($tags->name . '-' . $tags->id, '-'); 
+        $tags->slug = $slug;
+        $tags->save();
+
+        return redirect()->route('admin.tags.index')->with('status', 'Tag Saved');
     }
+
+    
 
     /**
      * Display the specified resource.
@@ -45,7 +65,7 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Tag $tag )
+    public function show(Tag $tag)
     {
         return view('admin.tags.show', compact('tag'));
     }
@@ -56,9 +76,9 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Tag $tag)
     {
-        //
+        return view('admin.tags.edit', compact('tag'));  
     }
 
     /**
@@ -68,10 +88,19 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Tag $tag)
     {
-        //
+        $request->validate([
+            'name' => 'required|min:3|max:255'
+        ]);
+
+        $data = $request->all();
+        $tag->update($data);
+        $slug = Str::slug($tag->name . '-' . $tag->id, '-'); 
+        $tag->slug = $slug;
+        return redirect()->route('admin.tags.index')->with('status', 'Tag update');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -79,8 +108,9 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Tag $tag)
     {
-        //
+        $tag->delete();
+        return redirect()->route('admin.tags.index')->with('status', 'Tags Delete');;
     }
 }
