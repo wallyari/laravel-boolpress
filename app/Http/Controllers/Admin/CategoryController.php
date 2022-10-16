@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
 use App\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -106,8 +105,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+     $category->delete();
+     return redirect()->route('admin.categories.index')->with('status','Category delete!'); 
     }
 }
