@@ -6,7 +6,7 @@
                 <img src="#" class="card-img-top" alt="#">
                 <div class="card-body">
                     <h5 class="card-title">{{post.title}}</h5>
-                    <p class="card-text">{{post.content}}</p>
+                    <p class="card-text">{{truncateText(post.content,50)}}</p>
                     <p class="card-text">{{post.category?post.category.name:'-'}}</p>
                     <p class="card-text">{{post.tag?post.tag.name:'-'}}</p>
                     <a href="#" class="btn btn-primary">Read more</a>
@@ -30,7 +30,14 @@ export default {
             .then((response) => {
                 this.posts =response.data.results;
                 console.log(response.data.results);
-            });
+            });         
+        },
+        truncateText(text, maxLength){
+            if(text.length < maxLength){
+                return text;
+            } else {  
+            return text.substring(0, maxLength) + '...';
+            }
         }
     },
     mounted(){
