@@ -2069,7 +2069,9 @@ var render = function render() {
 
   return _c("div", {
     staticClass: "container"
-  }, [_c("div", {
+  }, [_c("h2", {
+    staticClass: "mb-5"
+  }, [_vm._v("Posts List")]), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, _vm._l(_vm.posts, function (post, index) {
     return _c("div", {
@@ -2087,7 +2089,11 @@ var render = function render() {
       staticClass: "card-title"
     }, [_vm._v(_vm._s(post.title))]), _vm._v(" "), _c("p", {
       staticClass: "card-text"
-    }, [_vm._v(_vm._s(post.content))]), _vm._v(" "), _c("a", {
+    }, [_vm._v(_vm._s(post.content))]), _vm._v(" "), _c("p", {
+      staticClass: "card-text"
+    }, [_vm._v(_vm._s(post.category ? post.category.name : "-"))]), _vm._v(" "), _c("p", {
+      staticClass: "card-text"
+    }, [_vm._v(_vm._s(post.tag ? post.tag.name : "-"))]), _vm._v(" "), _c("a", {
       staticClass: "btn btn-primary",
       attrs: {
         href: "#"
