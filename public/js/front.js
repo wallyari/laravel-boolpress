@@ -1944,7 +1944,8 @@ __webpack_require__.r(__webpack_exports__);
   name: 'MyMain',
   data: function data() {
     return {
-      posts: []
+      posts: [],
+      loading: true
     };
   },
   methods: {
@@ -1954,6 +1955,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('/api/posts').then(function (response) {
         _this.posts = response.data.results;
         console.log(response.data.results);
+        _this.loading = false;
       });
     },
     truncateText: function truncateText(text, maxLength) {
@@ -2078,7 +2080,9 @@ var render = function render() {
     staticClass: "container"
   }, [_c("h2", {
     staticClass: "mb-5"
-  }, [_vm._v("Posts List")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Posts List")]), _vm._v(" "), _vm.loading ? _c("div", {
+    staticClass: "d-flex justify-content-center"
+  }, [_vm._m(0)]) : _c("div", {
     staticClass: "row"
   }, _vm._l(_vm.posts, function (post, index) {
     return _c("div", {
@@ -2109,7 +2113,19 @@ var render = function render() {
   }), 0)]);
 };
 
-var staticRenderFns = [];
+var staticRenderFns = [function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("div", {
+    staticClass: "spinner-border",
+    attrs: {
+      role: "status"
+    }
+  }, [_c("span", {
+    staticClass: "sr-only"
+  }, [_vm._v("Loading...")])]);
+}];
 render._withStripped = true;
 
 

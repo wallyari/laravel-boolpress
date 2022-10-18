@@ -1,7 +1,12 @@
 <template>
     <div class="container">
         <h2 class=mb-5>Posts List</h2>
-        <div class="row">
+        <div v-if="loading" class="d-flex justify-content-center">
+            <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <div v-else class="row">
             <div class="card col-12 mb-3" v-for="(post,index) in posts" :key="index">
                 <img src="#" class="card-img-top" alt="#">
                 <div class="card-body">
@@ -21,7 +26,8 @@ export default {
     name: 'MyMain',
     data(){
         return {
-        posts: []
+        posts: [],
+        loading: true
             }
     },
     methods:{
@@ -30,6 +36,7 @@ export default {
             .then((response) => {
                 this.posts =response.data.results;
                 console.log(response.data.results);
+                this.loading=false;
             });         
         },
         truncateText(text, maxLength){
