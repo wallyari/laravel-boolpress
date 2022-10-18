@@ -1945,6 +1945,9 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       posts: [],
+      currentPage: 1,
+      lastPage: null,
+      //inizializzazione prima della chiamata 
       loading: true
     };
   },
@@ -1952,17 +1955,23 @@ __webpack_require__.r(__webpack_exports__);
     getPosts: function getPosts() {
       var _this = this;
 
+      this.loading = true;
       axios.get('/api/posts').then(function (response) {
-        _this.posts = response.data.results;
-        console.log(response.data.results);
+        _this.posts = response.data.results.data;
         _this.loading = false;
+        _this.currentPage = response.data.results.current_page;
+        _this.lastPage = response.data.results.last_page;
       });
     },
     truncateText: function truncateText(text, maxLength) {
-      if (text.length < maxLength) {
-        return text;
+      if (text) {
+        if (text.length < maxLength) {
+          return text;
+        } else {
+          return text.substring(0, maxLength) + '...';
+        }
       } else {
-        return text.substring(0, maxLength) + '...';
+        return '';
       }
     }
   },
@@ -2078,8 +2087,8 @@ var render = function render() {
 
   return _c("div", {
     staticClass: "container"
-  }, [_c("h2", {
-    staticClass: "mb-5"
+  }, [_c("h1", {
+    staticClass: "mb-3"
   }, [_vm._v("Posts List")]), _vm._v(" "), _vm.loading ? _c("div", {
     staticClass: "d-flex justify-content-center"
   }, [_vm._m(0)]) : _c("div", {
@@ -2088,13 +2097,7 @@ var render = function render() {
     return _c("div", {
       key: index,
       staticClass: "card col-12 mb-3"
-    }, [_c("img", {
-      staticClass: "card-img-top",
-      attrs: {
-        src: "#",
-        alt: "#"
-      }
-    }), _vm._v(" "), _c("div", {
+    }, [_c("div", {
       staticClass: "card-body"
     }, [_c("h5", {
       staticClass: "card-title"
@@ -2102,10 +2105,8 @@ var render = function render() {
       staticClass: "card-text"
     }, [_vm._v(_vm._s(_vm.truncateText(post.content, 50)))]), _vm._v(" "), _c("p", {
       staticClass: "card-text"
-    }, [_vm._v(_vm._s(post.category ? post.category.name : "-"))]), _vm._v(" "), _c("p", {
-      staticClass: "card-text"
-    }, [_vm._v(_vm._s(post.tag ? post.tag.name : "-"))]), _vm._v(" "), _c("a", {
-      staticClass: "btn btn-primary",
+    }, [_vm._v(_vm._s(post.category ? post.category.name : "-"))]), _vm._v(" "), _c("a", {
+      staticClass: "btn btn-danger",
       attrs: {
         href: "#"
       }

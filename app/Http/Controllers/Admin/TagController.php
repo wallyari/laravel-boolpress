@@ -39,20 +39,15 @@ class TagController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'tag'=> 'required|max:255|min:3'
+            'name'=> 'required|max:255|min:3'
         ]);
         $data = $request->all();
         $tag = new Tag();
         $tag->fill($data);
 
-        $tags = new Tag();
-
-        $tags->fill($data);
-        $tags->save();
-
-        $slug = Str::slug($tags->name . '-' . $tags->id, '-'); 
-        $tags->slug = $slug;
-        $tags->save();
+        $slug = Str::slug($tag->name . '-'); 
+        $tag->slug = $slug;
+        $tag->save();
 
         return redirect()->route('admin.tags.index')->with('status', 'Tag Saved');
     }

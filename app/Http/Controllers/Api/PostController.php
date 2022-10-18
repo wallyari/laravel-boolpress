@@ -14,7 +14,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with(['category','tags'])->get();
+        $posts = Post::with(['category','tags'])->paginate(2);
         return response()->json([
             'succes'=> true,
             'results'=> $posts
@@ -22,7 +22,7 @@ class PostController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified resource. 
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
