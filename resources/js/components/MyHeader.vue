@@ -32,7 +32,7 @@
                         link: '#'
                         },
                         {
-                        name: 'News',
+                        name: 'Contact',
                         link: '#'
                         },
                         {
