@@ -8,7 +8,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li v-for="(item,index) in menuItems" class="nav-item active" :key="index">
-                        <a class="nav-link" :href="item.link">{{item.name}}</a>
+                        <router-link class="nav-link" :to="{name: item.routeName}" >{{item.name}}</router-link>
                     </li>                   
                 </ul>
             </div>
@@ -25,19 +25,15 @@
                 menuItems: [
                         {
                         name: 'Home',
-                        link: '#'
-                        },
-                        {
-                        name: 'Blog',
-                        link: '#'
+                        routeName: 'home'
                         },
                         {
                         name: 'Contact',
-                        link: '#'
+                        routeName: 'contact'
                         },
                         {
                         name: 'About Us',
-                        link: '#'
+                        routeName: 'aboutus'
                         },
                     ],
             }
