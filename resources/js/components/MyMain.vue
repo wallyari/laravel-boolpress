@@ -17,6 +17,15 @@
             </div>
         </div>
 
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item" :class="(currentPage==1?'disabled':'')"><a class="page-link" href="#" @click="getPosts(currentPage - 1)">Prev</a></li>
+                <li class="page-item disabled"><a class="page-link">
+                    <span> {{currentPage}}/{{lastPage}}</span></a></li>
+                <li class="page-item" :class="(currentPage==lastPage?'disabled':'')"><a class="page-link" href="#" @click="getPosts(currentPage + 1)">Next</a></li>
+            </ul>
+        </nav>
+
     </div>
 </template>
 
@@ -33,10 +42,14 @@
         },
         methods: {
             
-            getPosts() {
+            getPosts(page) {
                 this.loading = true;
 
-                axios.get('/api/posts')
+                axios.get('/api/posts',{
+                    params:{
+                        page:page
+                    }
+                })
                 .then((response) => {
                     this.posts = response.data.results.data;
                     this.loading = false;
@@ -47,7 +60,7 @@
             },
             
             truncateText(text, maxLength) {
-                     if(text){
+                    if(text){
                 if (text.length < maxLength) {
                     return text;
                 } else {
@@ -58,10 +71,9 @@
         return '';
     }
 }
-},
-        
+},        
         mounted() {
-            this.getPosts();
+            this.getPosts(1);
         }
     }
 </script>

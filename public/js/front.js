@@ -1952,11 +1952,15 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    getPosts: function getPosts() {
+    getPosts: function getPosts(page) {
       var _this = this;
 
       this.loading = true;
-      axios.get('/api/posts').then(function (response) {
+      axios.get('/api/posts', {
+        params: {
+          page: page
+        }
+      }).then(function (response) {
         _this.posts = response.data.results.data;
         _this.loading = false;
         _this.currentPage = response.data.results.current_page;
@@ -1976,7 +1980,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    this.getPosts();
+    this.getPosts(1);
   }
 });
 
@@ -2111,7 +2115,43 @@ var render = function render() {
         href: "#"
       }
     }, [_vm._v("Read more")])])]);
-  }), 0)]);
+  }), 0), _vm._v(" "), _c("nav", {
+    attrs: {
+      "aria-label": "Page navigation example"
+    }
+  }, [_c("ul", {
+    staticClass: "pagination"
+  }, [_c("li", {
+    staticClass: "page-item",
+    "class": _vm.currentPage == 1 ? "disabled" : ""
+  }, [_c("a", {
+    staticClass: "page-link",
+    attrs: {
+      href: "#"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.getPosts(_vm.currentPage - 1);
+      }
+    }
+  }, [_vm._v("Prev")])]), _vm._v(" "), _c("li", {
+    staticClass: "page-item disabled"
+  }, [_c("a", {
+    staticClass: "page-link"
+  }, [_c("span", [_vm._v(" " + _vm._s(_vm.currentPage) + "/" + _vm._s(_vm.lastPage) + "\n                ")])])]), _vm._v(" "), _c("li", {
+    staticClass: "page-item",
+    "class": _vm.currentPage == _vm.lastPage ? "disabled" : ""
+  }, [_c("a", {
+    staticClass: "page-link",
+    attrs: {
+      href: "#"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.getPosts(_vm.currentPage + 1);
+      }
+    }
+  }, [_vm._v("Next")])])])])]);
 };
 
 var staticRenderFns = [function () {
@@ -14786,7 +14826,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/arianna/Desktop/git-boolean/laravel-api/resources/js/front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! /Users/arianna/Desktop/git-boolean/laravel-boolpress/resources/js/front.js */"./resources/js/front.js");
 
 
 /***/ })
