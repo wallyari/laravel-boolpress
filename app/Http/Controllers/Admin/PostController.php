@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use App\Post;
@@ -42,21 +43,24 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
         
         $request->validate([
         'title'=>'required|max:255',
         'content'=>'required|max:255',
         'category_id'=>'nullable|exists:categories,id',
-        'tags'=>'exists:tags,id'
+        'tags'=>'exists:tags,id',
+        'image'=>'nullable|image|max:9000'
     ]);
-    
+
     $data = $request->all();
+
+    $img_path = Storage::put('cover', $data['image']);
+    $data['cover']= $img_path;
+    
+    
     $post= new Post();
     $post->fill($data);
-
     $slug =Str::slug($post->title,'-');
-
     $checkPost= Post::where('slug', $slug)->first();
     $counter=1;
     
@@ -118,10 +122,19 @@ class PostController extends Controller
             'title'=>'required|max:255',
             'content'=>'required|max:255',
             'category_id'=>'nullable|exists:categories,id',
-            'tags'=>'exists:tags,id'
+            'tags'=>'exists:tags,id',
+            'image'=>'nullable|image|max:9000'
         ]);
         
         $data = $request->all();
+        if(array_key_exists('image', $data)){
+            if($post->cover){
+            Storage::delete($post->cover);
+            }
+            $img_path = Storage::put('cover', $data['image']);
+            $data['cover']= $img_path;   
+        }
+        
         if ($post->title !== $data['title']){
             $slug = Str::slug($data['title'], '-');
 
@@ -152,9 +165,23 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Post $post)
-    {
+    {   
+        if($post->cover){
+            Storage::delete($post->cover);
+        }
+        
         $post->tags()->sync([]);
         $post->delete();
         return redirect()->route('admin.posts.index')->with('status','Post delete!');
     }
+
+    public function deleteCover(Post $post){
+        if($post->cover){
+            Storage::delete($post->cover);
+        }
+        $post->cover=null;
+        $post->save();
+        return redirect()->route('admin.posts.edit',['post'=> $post->id])->with ('status', 'Immagine ancellata con successo');
+
+        }
 }

@@ -9,6 +9,7 @@
     <thead>
         <tr>
             <th scope="col">#</th>
+            <th scope="col">Cover Thamb</th>
             <th scope="col">Title</th>
             <th scope="col">Slug</th>
             <th scope="col">Category</th>
@@ -20,6 +21,13 @@
             @foreach ($posts as $post)
             <tr>
                 <th scope="row">{{$post->id}}</th>
+                <th scope="row">
+                    @if($post->cover)
+                        <img src="{{asset('storage/' . $post->cover)}}" class="img-fluid" style="width:70px;"/>
+                        @else
+                        <img src="{{asset('img/placeholder.png')}}" class="img-fluid" style="width:70px;"/>
+                        @endif
+                </th>
                 <td>{{$post->title}}</td>
                 <td>{{$post->slug}}</td>
                 <td>{{($post->category)?$post->category->name: '_'}}</td>

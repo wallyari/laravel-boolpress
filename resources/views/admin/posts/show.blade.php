@@ -1,6 +1,12 @@
 @extends('layouts.app')
 @section('content')
 <div class="container text-center">
+    
+    @if($post->cover)
+        <img src="{{asset('storage/' . $post->cover)}}" class="img-fluid"/>
+    @else
+        <img src="{{asset('img/placeholder.png')}}" class="img-fluid"/>
+    @endif
 <div class="card">
     <div class="card-header">
         <h3>Title: {{$post->title}}</h3>

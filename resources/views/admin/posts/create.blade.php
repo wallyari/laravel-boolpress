@@ -2,9 +2,18 @@
 @section('content')
 
 <div class="container">
-    <form action="{{route('admin.posts.store')}}" method="POST">
+    <form action="{{route('admin.posts.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
         <h3 class="mb-4">Add Post</h3>
+        <div class="form-group">
+            <label for="cover">IMG COVER</label> 
+            <input class="form-control-file @error('image') is-invalid @enderror" type="file" name="image" id="cover">
+            @error('image')
+                <div class="invalid-feedback">
+                    {{$message}}
+                </div>
+            @enderror
+        </div>        
         <div class="form-group mb-3">
             <label for="category_id">Category</label>
             <select name="category_id" class="form-control @error('category_id') is-invalid @enderror" id="category_id">
