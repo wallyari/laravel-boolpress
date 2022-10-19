@@ -28,12 +28,16 @@
                         routeName: 'home'
                         },
                         {
+                        name: 'Blog',
+                        routeName: 'blog',
+                        },
+                        {
                         name: 'Contact',
                         routeName: 'contact'
                         },
                         {
                         name: 'About Us',
-                        routeName: 'aboutus'
+                        routeName: 'about-us'
                         },
                     ],
             }

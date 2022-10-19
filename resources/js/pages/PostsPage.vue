@@ -7,14 +7,7 @@
             </div>
         </div>
         <div v-else class="row">
-            <div class="card col-12 mb-3" v-for="(post, index) in posts" :key="index">
-                <div class="card-body">
-                    <h5 class="card-title">{{post.title}}</h5>
-                    <p class="card-text">{{truncateText(post.content, 50)}}</p>
-                    <p class="card-text">{{post.category?post.category.name:'-'}}</p>
-                    <a href="#" class="btn btn-danger">Read more</a>
-                </div>
-            </div>
+                <MyPost v-for="(post, index) in posts" :key="index" :post="post" />
         </div>
 
         <nav aria-label="Page navigation example">
@@ -30,8 +23,13 @@
 </template>
 
 <script>
+    import MyPost from '../components/MyPost.vue'
     export default {
-        name: 'MyMain',
+        name: 'PostsPage',
+        components: {
+            MyPost
+
+            },
         data() {
             return {
                 posts: [ ],
@@ -57,21 +55,9 @@
                     this.lastPage = response.data.results.last_page;
 
                 });
-            },
-            
-            truncateText(text, maxLength) {
-                    if(text){
-                if (text.length < maxLength) {
-                    return text;
-                } else {
-                    return text.substring(0, maxLength) + '...';
-                }
             }
-    else{
-        return '';
-    }
-}
-},        
+            
+    },        
         mounted() {
             this.getPosts(1);
         }
