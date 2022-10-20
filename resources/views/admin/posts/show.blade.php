@@ -13,7 +13,7 @@
     </div>
     <div class="card-body">
         <blockquote class="blockquote mb-0">
-        <p> Descripion: {{$post->content}}</p>
+        <p> Description: {{$post->content}}</p>
         <p> Category: {{$post->category?$post->category->name:'Unavailable'}}</p>
         <span class="">Tags:</span>
             @foreach ($post->tags as $tag)

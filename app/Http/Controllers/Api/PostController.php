@@ -35,18 +35,18 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($slug)
-    {
-        $post =Post::where('slug', $slug)->first();
-        if ($post){
+    {   
+        $post = Post::where('slug', $slug)->with(['category', 'tags'])->firstOrFail(); 
+        
+            if ($post->cover) {
+                $post->cover = asset('storage/' . $post->cover);
+            } else {
+                $post->cover = asset('img/placeholder.png');
+            }
             return response()->json([
                 'succes'=> true,
                 'results'=> $post
             ]);
-        }else {
-            return response()->json([
-                'succes'=> false,
-                'message'=> 'The Post doesen*t exist'
-            ]);
-        }    
+        }
     }
-}
+

@@ -2,9 +2,9 @@
 <div class="card col-12 mb-3">
                 <img :src="post.cover" class="card-img-top">
                 <div class="card-body">
-                    <h5 class="card-title">{{post.title}}</h5>
-                    <p class="card-text">{{truncateText(post.content, 50)}}</p>
-                    <p class="card-text">{{post.category?post.category.name:'-'}}</p>
+                    <h5 class="card-title">Title: {{post.title}}</h5>
+                    <p class="card-text">Content: {{truncateText(post.content, 50)}}</p>
+                    <p class="card-text">Category: {{post.category?post.category.name:'No Category'}}</p>
                     <router-link :to="{name:'single-post',params:{slug:post.slug}}" class="btn btn-danger">Read more</router-link>
                 </div>
             </div>

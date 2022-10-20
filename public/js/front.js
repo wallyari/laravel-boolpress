@@ -2095,11 +2095,22 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'SinglePost',
+  data: function data() {
+    return {
+      post: null
+    };
+  },
   methods: {
     getSinglePost: function getSinglePost() {
+      var _this = this;
+
       var slug = this.$route.params.slug;
       axios.get('/api/posts/' + slug).then(function (response) {
-        console.log(response);
+        _this.post = response.data.results;
+      })["catch"](function (error) {
+        _this.$router.push({
+          name: 'not-found'
+        });
       });
     }
   },
@@ -2252,11 +2263,11 @@ var render = function render() {
     staticClass: "card-body"
   }, [_c("h5", {
     staticClass: "card-title"
-  }, [_vm._v(_vm._s(_vm.post.title))]), _vm._v(" "), _c("p", {
+  }, [_vm._v("Title: " + _vm._s(_vm.post.title))]), _vm._v(" "), _c("p", {
     staticClass: "card-text"
-  }, [_vm._v(_vm._s(_vm.truncateText(_vm.post.content, 50)))]), _vm._v(" "), _c("p", {
+  }, [_vm._v("Content: " + _vm._s(_vm.truncateText(_vm.post.content, 50)))]), _vm._v(" "), _c("p", {
     staticClass: "card-text"
-  }, [_vm._v(_vm._s(_vm.post.category ? _vm.post.category.name : "-"))]), _vm._v(" "), _c("router-link", {
+  }, [_vm._v("Category: " + _vm._s(_vm.post.category ? _vm.post.category.name : "No Category"))]), _vm._v(" "), _c("router-link", {
     staticClass: "btn btn-danger",
     attrs: {
       to: {
@@ -2494,10 +2505,54 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("h1", [_vm._v("Single Post Page")]);
+  return _c("div", [_vm.post ? _c("article", [_c("div", {
+    staticClass: "card mb-3"
+  }, [_c("img", {
+    staticClass: "img-fluid",
+    attrs: {
+      src: _vm.post.cover,
+      alt: _vm.post.title
+    }
+  }), _vm._v(" "), _c("div", {
+    staticClass: "card-body"
+  }, [_vm._l(_vm.post.tags, function (tag) {
+    return _c("span", {
+      key: tag.id,
+      staticClass: "badge badge-danger mb-2 mr-2 p-1"
+    }, [_vm._v(_vm._s(tag.name))]);
+  }), _vm._v(" "), _c("h5", {
+    staticClass: "card-title"
+  }, [_vm._v("Title: " + _vm._s(_vm.post.title))]), _vm._v(" "), _c("p", {
+    staticClass: "card-text"
+  }, [_vm._v("Content: " + _vm._s(_vm.post.content))]), _vm._v(" "), _c("p", {
+    staticClass: "card-text"
+  }, [_c("small", {
+    staticClass: "text-muted"
+  }, [_vm._v("Category: " + _vm._s(_vm.post.category ? _vm.post.category.name : "No Category"))])])], 2)]), _vm._v(" "), _c("router-link", {
+    staticClass: "btn btn-primary",
+    attrs: {
+      to: {
+        name: "blog"
+      }
+    }
+  }, [_vm._v("Back to the List")])], 1) : _c("div", {
+    staticClass: "d-flex justify-content-center"
+  }, [_vm._m(0)])]);
 };
 
-var staticRenderFns = [];
+var staticRenderFns = [function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("div", {
+    staticClass: "spinner-border",
+    attrs: {
+      role: "status"
+    }
+  }, [_c("span", {
+    staticClass: "sr-only"
+  }, [_vm._v("Loading...")])]);
+}];
 render._withStripped = true;
 
 
