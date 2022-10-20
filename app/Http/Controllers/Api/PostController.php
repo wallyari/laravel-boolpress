@@ -13,11 +13,18 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $posts = Post::with(['category','tags'])->paginate(2);
+    {     
+        $posts = Post::with(['category', 'tags'])->paginate(2);
+        foreach ($posts as $post) {
+            if ($post->cover) {
+                $post->cover = asset('storage/' . $post->cover);
+            } else {
+                $post->cover = asset('img/placeholder.png');
+            }
+        }
         return response()->json([
-            'succes'=> true,
-            'results'=> $posts
+            'success' => true,
+            'results' => $posts
         ]);
     }
 
@@ -27,9 +34,19 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+        $post =Post::where('slug', $slug)->first();
+        if ($post){
+            return response()->json([
+                'succes'=> true,
+                'results'=> $post
+            ]);
+        }else {
+            return response()->json([
+                'succes'=> false,
+                'message'=> 'The Post doesen*t exist'
+            ]);
+        }    
     }
-
 }

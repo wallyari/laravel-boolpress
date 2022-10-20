@@ -181,7 +181,7 @@ class PostController extends Controller
         }
         $post->cover=null;
         $post->save();
-        return redirect()->route('admin.posts.edit',['post'=> $post->id])->with ('status', 'Immagine ancellata con successo');
+        return redirect()->route('admin.posts.edit',['post'=> $post->id])->with ('status', 'Delete Img');
 
         }
 }

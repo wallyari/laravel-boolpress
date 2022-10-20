@@ -5,7 +5,7 @@
                     <h5 class="card-title">{{post.title}}</h5>
                     <p class="card-text">{{truncateText(post.content, 50)}}</p>
                     <p class="card-text">{{post.category?post.category.name:'-'}}</p>
-                    <a href="#" class="btn btn-danger">Read more</a>
+                    <router-link :to="{name:'single-post',params:{slug:post.slug}}" class="btn btn-danger">Read more</router-link>
                 </div>
             </div>
 </template>
