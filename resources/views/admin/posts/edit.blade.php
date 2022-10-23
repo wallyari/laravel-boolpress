@@ -15,7 +15,10 @@
             <h5>Current image:</h5>
                 @if ($post->cover)
                     <img src="{{asset('storage/' . $post->cover)}}" class="img-fluid"/>
-                    <a href="#" class="btn btn-danger mb-3 mt-3" onclick="event.preventDefault(); document.getElementById('deleteCoverForm').submit();">Delete immagine</a>
+                    <div>
+                        <a href="#" class="btn btn-danger mb-3 mt-3" onclick="event.preventDefault(); 
+                    document.getElementById('deleteCoverForm').submit();">Delete immagine</a>
+                    </div>
                 @else
                     <h5 class="p-3 mb-2 bg-danger text-white text-center">NO IMG</h5>
                 @endif

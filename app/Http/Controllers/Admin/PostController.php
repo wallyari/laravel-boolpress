@@ -21,6 +21,7 @@ class PostController extends Controller
     {
         $posts= Post::all();
         return view('admin.posts.index', compact('posts'));
+
     }
 
     /**
@@ -46,7 +47,7 @@ class PostController extends Controller
         
         $request->validate([
         'title'=>'required|max:255',
-        'content'=>'required|max:255',
+        'content' => 'required|min:3|max:65535',
         'category_id'=>'nullable|exists:categories,id',
         'tags'=>'exists:tags,id',
         'image'=>'nullable|image|max:9000'
@@ -120,10 +121,10 @@ class PostController extends Controller
     {
         $request->validate([
             'title'=>'required|max:255',
-            'content'=>'required|max:255',
+            'content' => 'required|min:3|max:65535',
             'category_id'=>'nullable|exists:categories,id',
             'tags'=>'exists:tags,id',
-            'image'=>'nullable|image|max:9000'
+            'image'=>'nullable|image|max:9000',
         ]);
         
         $data = $request->all();
