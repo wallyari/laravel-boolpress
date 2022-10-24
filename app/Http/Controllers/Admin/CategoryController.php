@@ -42,12 +42,11 @@ class CategoryController extends Controller
         ]);
         $data = $request->all();
         $category = new Category();
-        $category->fill($data);;
+        $category->fill($data);
 
         
         $slug = Str::slug($category->name . '-' . $category->id, '-'); 
         $category->slug = $slug;
-   
         $category->save();
 
         return redirect()->route('admin.categories.index')->with('status', 'Category Update');
@@ -87,13 +86,13 @@ class CategoryController extends Controller
         $request->validate([
             'name' => 'required|max:255|min:3'
         ]);
-            $dati = $request->all();
+            $data = $request->all();
 
         //slug
-        $slug = Str::slug($dati['name'] . '-' . $category['id'], '-'); 
-        $dati['slug'] = $slug;
+        $slug = Str::slug($data['name'] . '-' . $category['id'], '-'); 
+        $data['slug'] = $slug;
         
-        $category->update($dati);
+        $category->update($data);
         $category->save();
 
         return redirect()->route('admin.categories.edit', ['category', 'category'=> $category->id])->with('status', 'Post modificato con successo');
@@ -107,7 +106,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-     $category->delete();
-     return redirect()->route('admin.categories.index')->with('status','Category delete!'); 
+        $category->delete();
+        return redirect()->route('admin.categories.index')->with('status','Category delete!'); 
     }
 }

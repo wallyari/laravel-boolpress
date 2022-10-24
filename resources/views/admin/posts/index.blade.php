@@ -23,10 +23,10 @@
                 <th scope="row">{{$post->id}}</th>
                 <th scope="row">
                     @if($post->cover)
-                        <img src="{{asset('storage/' . $post->cover)}}" class="img-fluid" style="width:70px;"/>
-                        @else
+                        <img src="{{asset('storage/'. $post->cover)}}" class="img-fluid" style="width:70px;"/>
+                    @else
                         <img src="{{asset('img/placeholder.png')}}" class="img-fluid" style="width:70px;"/>
-                        @endif
+                    @endif
                 </th>
                 <td>{{$post->title}}</td>
                 <td>{{$post->slug}}</td>
